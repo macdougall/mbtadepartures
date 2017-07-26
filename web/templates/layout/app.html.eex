@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="refresh" content="10">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Departures</title>
+    <link href="https://bootswatch.com/cyborg/bootstrap.min.css" rel="stylesheet">
+    <style>
+      @font-face {
+            font-family: led;
+			      src: url('<%= static_path(@conn, "/fonts/signus_led-s-webfont.woff2") %>') format('woff2'),
+				    url('<%= static_path(@conn, "/fonts/signus_led-s-webfont.woff") %>') format('woff');
+			      font-weight: normal;
+			      font-style: normal;
+        }
+        .container-fluid {
+            max-width:1200px;
+        }
+        h1 {
+            font-weight: bold;
+            font-size: 3.5em;
+        }
+        h2 {
+            font-weight: bold;
+            font-size: 2.0em;
+        }
+        .train {
+            font-family: led;
+            color: yellow;
+            font-size: 12pt;
+            wrap: nowrap;
+        }
+        .clock {
+            font-family: led;
+            color: yellow;
+            font-size: 30pt;
+            padding-top: 24px;
+            padding-right: 40px;
+            text-align: right;
+            wrap: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Departures</h1>
+        </div>
+        <div class="col-md-6 clock">
+            <%= @clock %>  
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <h2>Time</h2>
+        </div>
+        <div class="col-md-2">
+            <h2>Origin</h2>
+        </div>
+        <div class="col-md-2">
+            <h2>Destination</h2>
+        </div>
+        <div class="col-md-2">
+            <h2>Train #</h2>
+        </div>
+        <div class="col-md-2">
+            <h2>Track #</h2>
+        </div>
+        <div class="col-md-2">
+            <h2>Status</h2>
+        </div>
+    </div>
+<%= if (length @departures) > 0 do %>
+<%= for departure <- @departures do %>
+<!-- timestamp,origin,trip,destination,scheduledtime,lateness,track,status -->
+<%= #inspect train %>
+    <div class="row">
+        <div class="col-md-2 train">
+            <%= Timex.format!(departure.timestamp, "%H:%M", :strftime) %>
+        </div>
+        <div class="col-md-2 train">
+            <%= departure.origin %>
+        </div>
+        <div class="col-md-2 train">
+            <%= departure.destination %>
+        </div>
+        <div class="col-md-2 train">
+            <%= departure.trip %>
+        </div>
+        <div class="col-md-2 train">
+            <%= departure.track %>
+        </div>
+        <div class="col-md-2 train">
+            <%= departure.status %>
+        </div>
+    </div>
+ <%= end %>
+ <%= else %>
+   <div class="row">
+        <div class="col-md-10 train">
+            No Scheduled Trains
+        </div>
+   </div>
+<%= end %>
+</div>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+</body>
+</html>
