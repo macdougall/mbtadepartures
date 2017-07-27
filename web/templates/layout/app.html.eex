@@ -18,7 +18,7 @@
 			      font-style: normal;
         }
         .container-fluid {
-            max-width:1200px;
+            max-width:1400;
         }
         h1 {
             font-weight: bold;
@@ -26,12 +26,20 @@
         }
         h2 {
             font-weight: bold;
-            font-size: 2.0em;
+            font-size: 16pt;
         }
         .train {
             font-family: led;
+            font-weight: bold;
             color: yellow;
-            font-size: 12pt;
+            font-size: 16pt;
+            wrap: nowrap;
+        }
+        .trainhot {
+            font-family: led;
+            font-weight: bold;
+            color: red;
+            font-size: 16pt;
             wrap: nowrap;
         }
         .clock {
@@ -67,6 +75,12 @@
             <h2>Destination</h2>
         </div>
         <div class="col-md-2">
+            <h2>Arrival</h2>
+        </div>
+        <div class="col-md-2">
+            <h2>Delay</h2>
+        </div>
+        <div class="col-md-2">
             <h2>Train #</h2>
         </div>
         <div class="col-md-2">
@@ -79,10 +93,10 @@
 <%= if (length @departures) > 0 do %>
 <%= for departure <- @departures do %>
 <!-- timestamp,origin,trip,destination,scheduledtime,lateness,track,status -->
-<%= #inspect train %>
+<%= # Timex.format!(departure.timestamp, "%H:%M", :strftime) inspect train %>
     <div class="row">
         <div class="col-md-2 train">
-            <%= Timex.format!(departure.timestamp, "%H:%M", :strftime) %>
+            <%= departure.timestamp %>
         </div>
         <div class="col-md-2 train">
             <%= departure.origin %>
@@ -91,12 +105,24 @@
             <%= departure.destination %>
         </div>
         <div class="col-md-2 train">
+            <%= departure.scheduledtime %>
+        </div>
+        <div class="col-md-1 train">
+            <%= 
+            departure.lateness
+            %>
+        </div>
+        <div class="col-md-2 train">
             <%= departure.trip %>
         </div>
         <div class="col-md-2 train">
             <%= departure.track %>
         </div>
+        <%= if departure.status == "Now Boarding" do %>
+        <div class="col-md-2 trainhot">
+        <% else %>        
         <div class="col-md-2 train">
+        <% end %>
             <%= departure.status %>
         </div>
     </div>
