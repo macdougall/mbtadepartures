@@ -16,7 +16,7 @@ defmodule Departures.PageController do
   end
   
   def index(conn, _params) do
-    time = Timex.format!(Timex.local, "%H:%M", :strftime)
+    time = Timex.format!(Timex.local, "%I:%M %p", :strftime)
     render conn, "index.html", departures: departures(), clock: time
   end
 end
