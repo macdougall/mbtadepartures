@@ -18,7 +18,7 @@
 			      font-style: normal;
         }
         .container-fluid {
-            max-width:1400;
+            max-width:1600;
         }
         h1 {
             font-weight: bold;
@@ -32,14 +32,14 @@
             font-family: led;
             font-weight: bold;
             color: yellow;
-            font-size: 14pt;
+            font-size: 18pt;
             wrap: nowrap;
         }
         .trainhot {
             font-family: led;
             font-weight: bold;
             color: red;
-            font-size: 14pt;
+            font-size: 18pt;
             wrap: nowrap;
         }
         .clock {
