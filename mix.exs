@@ -17,7 +17,7 @@ defmodule Departures.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Departures, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :timex]]
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :calendar]]
   end
 
   # Specifies which paths to compile per environment.
@@ -34,6 +34,7 @@ defmodule Departures.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:nimble_csv, "~> 0.1.0"},
+     {:calendar, "~> 0.17.2"},
      {:timex, "~> 3.1"},
      {:cowboy, "~> 1.0"}]
   end

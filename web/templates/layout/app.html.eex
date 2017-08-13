@@ -32,14 +32,14 @@
             font-family: led;
             font-weight: bold;
             color: yellow;
-            font-size: 16pt;
+            font-size: 14pt;
             wrap: nowrap;
         }
         .trainhot {
             font-family: led;
             font-weight: bold;
             color: red;
-            font-size: 16pt;
+            font-size: 14pt;
             wrap: nowrap;
         }
         .clock {
@@ -60,80 +60,90 @@
             <h1>Departures</h1>
         </div>
         <div class="col-md-6 clock">
-            <%= @clock %>  
+            <%= 
+            @clock 
+            %>  
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h2>Time</h2>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h2>Origin</h2>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h2>Destination</h2>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h2>Arrival</h2>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h2>Delay</h2>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h2>Train #</h2>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h2>Track #</h2>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h2>Status</h2>
         </div>
     </div>
 <%= if (length @departures) > 0 do %>
 <%= for departure <- @departures do %>
+
 <!-- timestamp,origin,trip,destination,scheduledtime,lateness,track,status -->
 <%= # Timex.format!(departure.timestamp, "%H:%M", :strftime) inspect train %>
     <div class="row">
-        <div class="col-md-2 train">
-            <%= departure.timestamp %>
+        <div class="col-md-1 train">
+            <%= 
+                # 1501436918
+                # we're testing for a string here to make sure we can convert this from an epoch
+                # to a Native representation to display.
+                get_time(departure.timestamp)
+            %>
         </div>
-        <div class="col-md-2 train">
+        <div class="col-md-1 train">
             <%= departure.origin %>
         </div>
-        <div class="col-md-2 train">
+        <div class="col-md-1 train">
             <%= departure.destination %>
         </div>
-        <div class="col-md-2 train">
-            <%= departure.scheduledtime %>
+        <div class="col-md-1 train">
+            <%= 
+                get_time(departure.scheduledtime) 
+            %>
         </div>
         <div class="col-md-1 train">
             <%= 
             departure.lateness
             %>
         </div>
-        <div class="col-md-2 train">
+        <div class="col-md-1 train">
             <%= departure.trip %>
         </div>
-        <div class="col-md-2 train">
+        <div class="col-md-1 train">
             <%= departure.track %>
         </div>
         <%= if departure.status == "Now Boarding" do %>
-        <div class="col-md-2 trainhot">
+        <div class="col-md-1 trainhot">
         <% else %>        
-        <div class="col-md-2 train">
+        <div class="col-md-1 train">
         <% end %>
             <%= departure.status %>
         </div>
     </div>
- <%= end %>
- <%= else %>
+ <% end %>
+ <% else %>
    <div class="row">
         <div class="col-md-10 train">
             No Scheduled Trains
         </div>
    </div>
-<%= end %>
+<% end %>
 </div>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

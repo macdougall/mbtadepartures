@@ -2,6 +2,7 @@ defmodule Departures.PageController do
   require IEx
   use Departures.Web, :controller
   use Timex
+  
   # Retrieve from URL, a CSV of departure times.
   # Returns a new map with the departure times parsed from a CSV.
   def departures() do
@@ -13,7 +14,7 @@ defmodule Departures.PageController do
       %{timestamp: timestamp, origin: origin, trip: trip, destination: destination,scheduledtime: scheduledtime,lateness: lateness, track: track, status: status} 
     end)
   end
-
+  
   def index(conn, _params) do
     time = Timex.format!(Timex.local, "%H:%M", :strftime)
     render conn, "index.html", departures: departures(), clock: time
