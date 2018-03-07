@@ -2,6 +2,7 @@
 /node_modules
 /cover
 /deps
+.DS_Store
 erl_crash.dump
 *.ez
 *.beam
